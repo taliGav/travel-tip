@@ -4,18 +4,17 @@ import { storageService } from './storage.service.js';
 
 export const mapService = {
     initMap,
-    addMarker,
-    panTo,
+    addLocation,
     removeLoc,
-    addLocation
+    panTo,
+    addMarker
 };
-
 
 const STORAGE_KEY = 'locsDB';
 
 function initMap() {
     console.log('InitMap');
-    return _connectGoogleApi()
+    return _connectGoogleApi();
 }
 
 function addLocation(pos) {
@@ -24,6 +23,7 @@ function addLocation(pos) {
             console.log(locs);
             if (!locs) locs = [];
             pos.id = util.makeId(5);
+            if (postMessage.name === '') return;
             locs.push(pos);
             // addMarker(pos);
             storageService.save(STORAGE_KEY, locs);
@@ -67,9 +67,9 @@ function _connectGoogleApi() {
     });
 }
 
-function geocoding(){    
+function geocoding() {
     const API_KEY = 'AIzaSyAOf-gO34FqfRnFoi5TwqmvHOoGLzw1qI0';
-    `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`;
 }
 
 function removeMarker(id) {
