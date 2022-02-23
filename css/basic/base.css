@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--clr1) ;
+    font-size: 1.8em;
+}
+
+h1,
+h2{
+    padding: 20px;
+}

@@ -1,14 +1,24 @@
-* {
-    box-sizing: border-box;
-}
+/* SETUP  */
 
-body {
-    margin: 0;
-    background-color: #F47340 ;
-    font-size: 1.8em;
-}
+@import './setup/vars.css';
+@import './setup/typography.css';
 
-h1,
-h2{
-    padding: 20px;
-}
+
+
+/* BASE */
+
+@import './basic/base.css';
+@import './basic/layout.css';
+@import './basic/helpers.css';
+@import './basic/mq.css';
+
+
+
+/* COMPONENTS */
+
+@import './components/screen.css';
+@import './components/main-header.css';
+@import './components/main.css';
+@import './components/map-conatiner.css';
+@import './components/footer.css';
+
