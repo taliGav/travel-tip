@@ -1,6 +1,5 @@
 'use strict' 
 
-
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
