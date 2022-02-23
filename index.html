@@ -15,8 +15,8 @@
                 <h1>TravelTip Starter</h1>
             </div>
             <div class="header-search">
-                <input type="text" placeholder="Enter Location">
-                <input type="submit" class="btn location-input">
+                <input type="text" class="search-input" placeholder="Enter Location">
+                <input type="submit" class="btn location-input" onclick="onSearchPlace()">
                 <button class="btn my-locatoin-btn">My Location</button>
             </div>
         </header>
@@ -59,7 +59,7 @@
         <footer></footer>
     </div>
 
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi6M2IwzQkBAIGrJz_BoRHxKLv5VBNoQ0&libraries=places"></script>
     <script type="module" src="js/app.controller.js"></script>
 </body>
 
