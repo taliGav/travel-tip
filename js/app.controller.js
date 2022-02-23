@@ -79,28 +79,60 @@ function getPosition() {
 }
 
 function onSearchPlace() {
-    var place = document.querySelector('.search-input').value; 
-    console.log('place',place);
+    var place = document.querySelector('.search-input').value;
+    console.log('place', place);
     const request = {
         query: place,
         fields: ["name", "geometry"],
     };
 
-    var service = new google.maps.places.PlacesService(gMap);
-    service.findPlaceFromQuery(request, (results, status) => {
-        console.log('status',status);
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            for (let i = 0; i < results.length; i++) {
-                createMarker(results[i]);
-            }
+    mapService.geocoding(place).then((service) => {
 
-            gMap.setCenter(results[0].geometry.location);
+
+        //new google.maps.places.PlacesService(gMap);
+        const locations = {
+            lat: service.geometry.location.lat(),
+            lng: service.geometry.location.lng()
         }
+
+        const latlng = new google.maps.LatLng(locations.lat, locations.lng);
+        gMap.setCenter(latlng);
+        renderLocations(place, lat, lng)
+
     });
+
+    // service.findPlaceFromQuery(request, (results, status) => {
+    //     console.log('status', status);
+    //     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+    //         for (let i = 0; i < results.length; i++) {
+    //             createMarker(results[i]);
+    //         }
+
+    //         gMap.setCenter(results[0].geometry.location);
+    //     }
+    // });
+}
+
+//TODO: finish
+function renderLocations(place, lat, lng) {
+    const locs = getlocs()
+    document.querySelector('.user-locs').innerHTML = locs.map(({ name, coords, id }) => {
+        return `<tr>
+        <tr>
+        <th>Locations</th>
+        <th colspan="2">Actions</th>
+    </tr>
+    <tr>
+        <td id="${loc.id}">Location</td>
+        <td><button>Go</button></td>
+        <td><button onclick="onRemoveLoc(this.id)">Delete</button></td>
+    </tr>`
+    }).join('')
+    return locs
 }
 
 function createMarker(place) {
-    console.log('place.name',place.name);
+    console.log('place.name', place.name);
     if (!place.geometry || !place.geometry.location) return;
 
     const marker = new google.maps.Marker({

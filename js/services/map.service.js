@@ -2,12 +2,14 @@ import { util } from './util.service.js';
 import { locService } from './loc.service.js';
 import { storageService } from './storage.service.js';
 
+
 export const mapService = {
     initMap,
     addLocation,
     removeLoc,
     panTo,
-    addMarker
+    addMarker,
+    geocoding
 };
 
 const STORAGE_KEY = 'locsDB';
@@ -38,6 +40,7 @@ function removeLoc(id) {
 }
 
 function addMarker(loc) {
+
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
@@ -67,9 +70,24 @@ function _connectGoogleApi() {
     });
 }
 
-function geocoding() {
+function geocoding(addressStr) {
     const API_KEY = 'AIzaSyAOf-gO34FqfRnFoi5TwqmvHOoGLzw1qI0';
-    `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`;
+    let geocoder = new google.maps.Geocoder();
+    return new Promise((resolve, reject) => {
+
+
+        geocoder.geocode({
+            address: addressStr
+        }, (res) => {
+            resolve(res[0]);
+        });
+    })
+
+    // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressStr}&key=${API_KEY}`)
+    //     .then((res) => {
+    //         console.log(res)
+    //     })
+
 }
 
 function removeMarker(id) {
